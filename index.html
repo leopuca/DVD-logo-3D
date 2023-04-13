@@ -38,6 +38,7 @@
 
 @media only screen and (max-width: 768px) {
   h1 {
+    padding: 10px;
     font-size: 6vh;
     line-height: 6vh;
   }
@@ -86,10 +87,25 @@
     const meshes = [];
     const bodies = [];
     var sphereMesh;
+    var frustumSize;
+    var pos;
 
     const aspect = window.innerWidth/window.innerHeight;  // the canvas default
     console.log(aspect);
-    const frustumSize = 10;
+
+    if ( aspect < 1 ) { //mobile
+      frustumSize = 16;
+      pos = 8;
+    }
+
+    else if ( aspect >=1 ) { //desktop
+      frustumSize = 10;
+      pos = 5;
+    }
+
+
+
+    // const frustumSize = 10;
     const camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
 
     camera.position.set(0, 0, 10);
@@ -140,27 +156,27 @@
 
     // Set positions and orientations of container bodies
     containerBodies[0].addShape(containerShapes[0]);
-    containerBodies[0].position.set(-5*aspect, 0, 0);
+    containerBodies[0].position.set(-pos*aspect, 0, 0);
     world.add(containerBodies[0]);
 
     containerBodies[1].addShape(containerShapes[1]);
-    containerBodies[1].position.set(5*aspect, 0, 0);
+    containerBodies[1].position.set(pos*aspect, 0, 0);
     world.add(containerBodies[1]);
 
     containerBodies[2].addShape(containerShapes[2]);
-    containerBodies[2].position.set(0, -5, 0);
+    containerBodies[2].position.set(0, -pos, 0);
     world.add(containerBodies[2]);
 
     containerBodies[3].addShape(containerShapes[3]);
-    containerBodies[3].position.set(0, 5, 0);
+    containerBodies[3].position.set(0, pos, 0);
     world.add(containerBodies[3]);
 
     containerBodies[4].addShape(containerShapes[4]);
-    containerBodies[4].position.set(0, 0, -5);
+    containerBodies[4].position.set(0, 0, -pos);
     world.add(containerBodies[4]);
 
     containerBodies[5].addShape(containerShapes[5]);
-    containerBodies[5].position.set(0, 0, 5);
+    containerBodies[5].position.set(0, 0, pos);
     world.add(containerBodies[5]);
 
 
